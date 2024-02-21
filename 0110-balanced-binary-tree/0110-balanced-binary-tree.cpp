@@ -15,10 +15,7 @@ public:
         if(root==NULL){
             return true;
         }
-        if(height(root)==-1){
-            return false;
-        }
-        return true;
+        return height(root)!=-1;
         
     }
     int height(TreeNode * root){

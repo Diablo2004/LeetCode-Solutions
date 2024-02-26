@@ -1,13 +1,3 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
@@ -15,7 +5,7 @@ public:
             return head;
         }
         
-        // Calculate the length of the linked list
+        // Find the length of the list
         int length = 1;
         ListNode* tail = head;
         while (tail->next != nullptr) {
@@ -23,22 +13,24 @@ public:
             length++;
         }
         
-        // Adjust k to be less than or equal to the length of the linked list
+        // Make k valid
         k = k % length;
+        
+        // If k is zero, no rotation needed
         if (k == 0) {
             return head;
         }
         
-        // Find the new tail node and break the linked list
+        // Find the new head and new tail positions
         ListNode* newTail = head;
         for (int i = 0; i < length - k - 1; i++) {
             newTail = newTail->next;
         }
-        ListNode* newHead = newTail->next;
-        newTail->next = nullptr;
         
-        // Attach the original tail to the original head to form a circular linked list
-        tail->next = head;
+        // Update pointers to create the rotated list
+        ListNode* newHead = newTail->next;
+        tail->next = head; // Make the original list circular
+        newTail->next = nullptr; // Set the new tail's next pointer to null
         
         return newHead;
     }

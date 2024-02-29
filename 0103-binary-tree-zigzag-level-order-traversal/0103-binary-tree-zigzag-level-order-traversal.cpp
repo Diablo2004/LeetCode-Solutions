@@ -19,48 +19,32 @@ public:
         queue<TreeNode*> q;
         int level=0;
         q.push(root);
-        while(!q.empty()){
-            int levelSize=q.size();
-            vector<int> current;
-            reverseQueue(q);
-            if(level%2==1){
-                for (int i = 0; i < levelSize; ++i) {
-                    TreeNode* node = q.front();
-                    q.pop();
-                    current.push_back(node->val);
-
-                    if (node->right)
-                        q.push(node->right);
-                    if (node->left)
-                        q.push(node->left);
-                }
-            }else{
-                for (int i = 0; i < levelSize; ++i) {
-                    TreeNode* node = q.front();
-                    q.pop();
-                    current.push_back(node->val);
-
-                    if (node->left)
-                        q.push(node->left);
-                    if (node->right)
-                        q.push(node->right);
-                }
-                
-            }
-            level++;
-            result.push_back(current);
-        }
+                    while (!q.empty()) {
+                        int levelSize = q.size();
+                        deque<int> currentLevel;
+                        for (int i = 0; i < levelSize; ++i) {
+                            TreeNode* node = q.front();
+                            q.pop();
+                            if (level % 2 == 0) {
+                                currentLevel.push_back(node->val);
+                            } else {
+                                currentLevel.push_front(node->val);
+                            }
+                            if (node->left) {
+                                q.push(node->left);
+                            }
+                            if (node->right) {
+                                q.push(node->right);
+                            }
+                        }
+                        vector<int> currentLevelVec;
+                        for (auto& val : currentLevel) {
+                            currentLevelVec.push_back(val);
+                        }
+                        result.push_back(currentLevelVec);
+                        level++;
+                    }
+        
         return result;
-    }
-    void reverseQueue(queue<TreeNode*>& q) {
-        stack<TreeNode*> s;
-        while (!q.empty()) {
-            s.push(q.front());
-            q.pop();
-        }
-        while (!s.empty()) {
-            q.push(s.top());
-            s.pop();
-        }
     }
 };

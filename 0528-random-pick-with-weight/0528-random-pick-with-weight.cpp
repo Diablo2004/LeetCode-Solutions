@@ -2,7 +2,7 @@
 class Solution {
 private:
     vector<int> prefixSum;
-    mt19937 rng;
+
 
 public:
     Solution(vector<int>& nums) {
@@ -12,12 +12,10 @@ public:
             prefixSum.push_back(sum);
         }
         
-        random_device rd;
-        rng.seed(rd());
     }
     
     int pickIndex() {
-        int target = rng() % prefixSum.back();
+        int target = rand() % prefixSum.back();
         
         int left = 0, right = prefixSum.size() - 1;
         while (left < right) {

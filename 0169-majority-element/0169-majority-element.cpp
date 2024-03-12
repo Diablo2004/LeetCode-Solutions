@@ -6,7 +6,7 @@ public:
         for(auto c:nums){
             map[c]++;
         }
-        for(auto& c:map){
+        for(auto c:map){
             if(c.second>n/2){
                 return c.first;
             }

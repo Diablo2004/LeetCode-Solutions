@@ -1,20 +1,18 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
-        unordered_map<char, int> freq;
-        for (char c : s)
-            freq[c]++;
-        
-        int length = 0;
-        bool hasOdd = false;
-        
-        for (const auto& entry : freq) {
-            length += entry.second / 2 * 2;
-            if (entry.second % 2 == 1)
-                hasOdd = true;
+        uint oddCount = 0;
+        unordered_map<char, int> ump;
+        for(char ch : s) {
+            ump[ch]++;
+            if (ump[ch] % 2 == 1)
+                oddCount++;
+            else    
+                oddCount--;
         }
-        
-        return length + (hasOdd ? 1 : 0);
+        if (oddCount > 1)
+            return s.length() - oddCount + 1;
+        return s.length();
     
     }
 };
